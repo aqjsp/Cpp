@@ -12,7 +12,7 @@
 
 函数的使用极大的减少了代码重复率，提高了代码的灵活性。那么，在C++中的可调用对象都有哪些？
 
-![image-20240112002349995](https://raw.githubusercontent.com/aqinzz/Pictures/main/202401120023594.png)
+![image-20240117204702027](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172047222.png)
 
 接下来就将这些可调用对象展开详细讲讲：
 
@@ -323,7 +323,7 @@ int main()
 
 结果：
 
-![image-20240112002441624](https://raw.githubusercontent.com/aqinzz/Pictures/main/202401120024033.png)
+![image-20240117204748566](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172047862.png)
 
 上面这些代码，我们肉眼可见的长，这些函数不仅长，而且它们的功能都是类似的，那我们为何要写这么长三个函数呢？所以我们就要思考，是否可以用一个函数的主体，然后写三个子函数，再传入主体函数呢？
 
@@ -458,7 +458,7 @@ int main()
 
 结果：
 
-![image-20240112002503250](https://raw.githubusercontent.com/aqinzz/Pictures/main/202401120025928.png)
+![image-20240117204844826](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172048217.png)
 
 上面这个就是仿函数的写法了，表面上看起来是挺长的，看起来还不如第二种方式，可以直接在函数中调用，但是第二种方式还有一个很麻烦的缺点：我们在每次修改数值的时候，第二种方式直接就是在函数中写死了，或者说是在函数调用的时候，只会看到调用的函数名称，并不会看到实际比较的数值。
 

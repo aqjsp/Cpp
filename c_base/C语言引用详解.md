@@ -21,15 +21,15 @@ return 0;
 
 调试查看一下 a 和 b 的关系：
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=NzdiYjZmZmY2NjA2NmI3MDkwMmRjMjViNTdkM2NkNjFfcVlIeUdBd2piZ0w2bzVYbnA4R0hDcndKRTNyb3p2MUZfVG9rZW46Ym94Y25WWTVYZmZiVzM2SHVKczh0b2VoMkZkXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117211827290](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172118793.png)
 
 我们发现a和b的值不仅相等，连它的地址也是相同的。这就可以说明，b就是a ，但是在语法层面上，这里b并不是开辟的新空间，而是对原来的a取了一个新名称，叫做b。就好比林冲被叫做豹子头一样，林冲还是林冲，豹子头也是它；而a就是a，但是b也是 a 。
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=YmRlNjk0MGQzYTE1MzU5NzIxOTc5Y2M4MmI2NzNiMGRfeTY5dHIxb2Z5a2VZUkFWdWRiVXpGTldnMFNnNUZFamdfVG9rZW46Ym94Y25QaVB4YTZrYkpSd255VUpPTzVENkdjXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117211849950](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172118637.png)
 
 而如果这时候对 a 或 b 任意一个修改，那么 a 和 b 都会发生修改。
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=YWZiYzhiY2ZhOTg4ZTIxNWRkOWNlN2U2M2VhOTQ2NjNfRHVhZHh0TUhuWmZFN2pxVVpSZTdJNEFHWElHUENGMU5fVG9rZW46Ym94Y25UMVhVOUJKc2U3TkdlZ1FFdlBzYjFmXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117211914808](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172119043.png)
 
 ### **4、特性**
 
@@ -37,7 +37,7 @@ return 0;
 
 1. **引用必须在定义时初始化**
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=MmYxYmJkZWI4MGRiOGEwMDU2NTQzZTdlOGMzNTQ3MzlfNXRMZVRlWkNKSGJPNlJBNUJZcmtldmh1S0RGU1hzZ0FfVG9rZW46Ym94Y24yVG5xbWw3ZGg1UlRmUlhLQldqRUNmXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117211931413](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172119614.png)
 
 引用是取别名，所以在定义的时候必须明确是谁的别名。
 
@@ -45,19 +45,19 @@ return 0;
 
 就和林冲一样，他可以叫豹子头也可以叫林教头，这都是它。所以一个变量也可以有多个别名。
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=NGM5ODBiODFkYTg4MDMwNDI5OWExOThlMzAyOWE1ZjVfUW1RQ0d3bkxvUTdMMnVRWFVPaEp0T2w4eWZhZHhnRWRfVG9rZW46Ym94Y241SHZQNUNkUWI0MjhPZlh5a0M5MGRlXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117211950207](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172119768.png)
 
 而对于一个起过别名的变量，对它的别名取别名也是可以的。
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=NzJlZmQ1YmFmNDFjNDNhZmYwYjU4NjIwYzllZjA3ZThfOHYzbEhuU3J0SXl5dHJwQmlUUUpuSGphdTFldHY1RnRfVG9rZW46Ym94Y25vS3dHN1NnTGpURTc1c1l3Rm5ObTRlXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212008040](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172120893.png)
 
 而从根本上看，就可以这么理解：
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=MTUwNTJmZWI4NzMxNzk0Yjg4OGEzYzkwYWVkMWI3OGFfeEU4b2g5cFdZSXo1VVE4RVc5Mlhnc3V0UU1McW1oa1hfVG9rZW46Ym94Y25YREJiZ0IzeFRuUW1CYXhhVmVscFdnXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212024740](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172120224.png)
 
 **本质上还是一个变量。**但是别名不能和正式名字冲突，就比如取过别名，就不能定义和别名重名的变量，即使它们的类型并不相同。
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGQ0NmM1ZjRmN2U2ODM5YTQzMDU5NjQzMzcyZThhMTJfZWt3VFluUGVYS1k1UkVFWHA5ZFBBdDdVTngzNEx0RFFfVG9rZW46Ym94Y25iQ0FHODZxMk01REtVblBGUmVFSkpkXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212046379](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172120854.png)
 
 所以说这里的报错信息并不准确，实际上是命名冲突。
 
@@ -80,11 +80,11 @@ int main(){
 
 这里的代码意思是第二个含义，就是赋值，我们调试看看：
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=NzE3Mjc4ZGRlYmIzNWUzYjEzZmNhYzRjOTI2ZDg2NjJfUVVRb2Rvc0IwbXVsUTg2cGpYMWlLUDZzbG5JQ09XbmJfVG9rZW46Ym94Y253QlNrbzZESlJQWHE2NFlteTVnMTVnXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172122298.gif)
 
 调试我们也可以看到，我们只是把 c 的值赋值给了 b ，b 的地址还是没变的 ，并且 a 的值也改变了。这就说明引用一旦引用某一个实体，就不能引用其他的实体，引用是不会发生改变的。因为它们是完全独立的两个变量，仅有的关联也只是值相等，改变 b 并不能影响 c ，但是此时 b 是 a 的别名，所以改变 b 就会影响 a 。图：
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=NTNiODBiYzljYzEyMGU4YTA3OWZlNzE3M2Y2ZTMxMTNfOEpNUGVVYjNHbkoxOENOdjRXR3pvWmNPVHVYcDdtblFfVG9rZW46Ym94Y25HdnVtcU5LNzZ6OVJRV2hRSDFUY3lmXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212309694](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172123249.png)
 
 但是对于指针，则是截然不同的：
 
@@ -100,7 +100,7 @@ int main(){
 
 对于指针来说，指针就可以时刻修改：
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=NTQzMDViZTYxYWNhOTA5ZTAwY2UxZGYxMjBmNTBmNjBfQ3ZGYzZaVWowNkpnRXBXeXJ4ZjdnYnYya2haYmNIcTNfVG9rZW46Ym94Y25GWHFSTllobEpQTm40SmVXbDJoellmXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172124228.gif)
 
 p原本指向 a ，现在指向 c.但是引用也有局限性，因为引用之后的变量是不可修改引用的，比如链表，节点是要不断更替迭代的，所以还需要指针配合，C++才可以写出一个链表。
 
@@ -110,19 +110,19 @@ p原本指向 a ，现在指向 c.但是引用也有局限性，因为引用之�
 
 我们知道实参的改变不影响形参，所以这种写法并不能改变值，因为此刻是 传值调用 ：
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=MDRmZmE1Njc3YmNmNDljMGFlMzVkNjIxODRhOTBlNmJfemlib3FxZkZ4b3pPdmlEVERrcDhQNGpHd05KR2w1d2VfVG9rZW46Ym94Y242SHlETlpURW8yMFhKV3J0Q2huYXdnXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212417822](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172124146.png)
 
 按照之前 c 的写法，我们使用 传址调用 ，用指针修改：
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=MjE4NjBmOTE0ZDg1YWY2NDU5ZGJjYjk4MDg3OGVhOWRfNktzRG9rVXhWRjBsbHhvYnZLOUtnRUN2bHhaMkQ1bmlfVG9rZW46Ym94Y25tR2hBZDY3RlNrbDBtUVdybUdQdmZiXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212434278](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172124320.png)
 
 但是学习引用之后，完全可以用引用修改：
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=YWUxODhkN2Y5Y2JlMmU3MmVlNWVlMzQ4YmQwNTViMmRfdWI2Y1IwWG8yY2lWdlREWTYyQW4yNXNvWVF2cTlUSmNfVG9rZW46Ym94Y245VUZCNjA0a3Z2UDFHSjd6QU1tT1dnXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212452498](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172124898.png)
 
 x 和 y 分别是 a 和 b 的引用，对 x 和 y 进行修改，就是对 a 和 b 进行修改，所以值也被修改成功了。调试一下：
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmVmYWY3NjViNDFlMTQxODZkNmZiNzcyY2E4NjEyMTdfSTAzeTI0enFIVXhLeHdCNGxqZWJ0akluZnhEb1hwOWZfVG9rZW46Ym94Y25tNDI5NE5mOGo2WlpHbFRNTlJ2S09KXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172125439.gif)
 
 它们的地址是完全相同的。而这里这里既不是传值调用，也不是传址调用，而是传引用调用。
 
@@ -130,7 +130,7 @@ x 和 y 分别是 a 和 b 的引用，对 x 和 y 进行修改，就是对 a 和
 
 根据函数名修饰规则，传值和传引用的是不一样的，比如会加上 R 做区分。但是不能同时调用传值和传引用，因为有歧义，就会导致调用不明确 ，编译器并不知道调用哪个:
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=MTBiZDFhZjc1M2EzMDRhMDg4ZjkzZTYxMzk5M2ExZWRfSHE0cndoUmwwTVpuc0gzeXROcUEwUTF5UTk1d05vVTlfVG9rZW46Ym94Y25UU2ZvYmN4NUw3NjRhaFlJUkZHN3dnXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212547579](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172125941.png)
 
 引用解决二级指针生涩难懂的问题 ：
 
@@ -214,7 +214,7 @@ int main(){
 
 这里看似很简单，就是把add函数计算结束的结果返回，但是这里包含了 传值返回 。若从栈帧角度看，会先创建 main 函数的栈帧，里面就会有 call 指令，开始调用 add 函数。而 add 函数也会形成栈帧，而栈帧中也有两块小空间，用来接受参数，分别为 a 和 b，而里面的 c 则用来计算结果并返回。
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=MzY3NDJhM2FhYjE2ZmZmZjc5NGZmYTk2MDkzN2FmN2NfajVSaVY0NjRSZlBFM0xmUlV0ZTBBSFZ6T1pHandVTVJfVG9rZW46Ym94Y25ONzZ5V3lCYlc4ZjZQNTBuaUlTT1dkXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212608867](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172126109.png)
 
 而对于传值返回，返回的并不是 c ，而是返回的是 c 的拷贝。而这其中会有一个临时变量，返回的是临时变量(见函数栈帧)如果返回的是 c 的话，由于 add 的函数栈帧已经销毁了，就会产生很多奇怪的问题。c 能不能取到都是未知，而这时都是非法访问，因为空间已经被归还给系统了，所以必定是c拷贝后的数据被返回。但是临时变量在哪？
 
@@ -225,15 +225,15 @@ int main(){
 
 图：
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=MGE1YmE4Y2JhNzIwMTBlNzgzN2JiZjJiMWQ4MjBmZjhfejdRSmIyd3hHcnJEMFdWNGFKTnpYNDhYeGJtbVZtWmVfVG9rZW46Ym94Y25mVkV2RTlNV2pmanYxM2Q5UkFnYnpiXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212626144](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172126174.png)
 
 所有的传值返回都会生成一个拷贝便于理解，看一下汇编：
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZThlNDdmNDk0MDk3M2JlNzkxOTYzMWQ3Mjg4N2NjYTlfaERiUzZ1RDJIN3ljZ0dRd0NMWkhadU1Zb3hUb1puaVBfVG9rZW46Ym94Y25jTTc1MmwyNkZUUnJOWkZBSnpjd2diXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212641514](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172126833.png)
 
 看第四句话，这里是说，把 eax 中的值，拷贝到 ret 中。而再函数调用返回时：
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGZhNThjYzEwYjIyYzFlN2UyMDE2MTdkOTQzMTcwNmNfdkx0YXk2TGtUa1REOGFqVTU1V3M2UWphUnVuOTUzRVpfVG9rZW46Ym94Y25Tdm5rMW5YYTJmU1VsS1J0QVVSVE5iXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212658696](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172126869.png)
 
 这里是将 c 的值放到 eax 中的。这也就印证了返回时，是以临时拷贝形式返回的，由于返回值是 int ，所以是直接用的 eax 寄存器。
 
@@ -256,7 +256,7 @@ int main(){
 
 看一下汇编：
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=YWI3NjQ5NGYwN2YxMzk4YzJmNmY5ZGI2OTc3YzMyZjNfMEFiTmVEMkpZRzJyWklWcm8xZXA4ZkRwakhUdGtOSnRfVG9rZW46Ym94Y25vcnE4SlYzN1V3eUtGWU9tSDN4S21kXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212716426](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172127557.png)
 
 仍然是放到 eax 寄存器中返回的。
 
@@ -287,7 +287,7 @@ ps：虽然vs销毁栈帧没有清理空间数据，但是会二次覆盖
 
 来看个有意思的：
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=Njg5YmM1MmRjNDc5NmUzZWUxNzIxNzI5MDk3NmU5NjVfMGd5Q0JGUWx1dU9hOXRsckE1a0s1ZFhXY3lHaGhMek5fVG9rZW46Ym94Y25PcVlrdUczeDgwOHRzbzJ6bFBhSk5nXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212736858](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172127092.png)
 
 例如这里，当调用 add 函数之后，返回 c 的引用，接收返回值是用的ret相当于是 c 的引用，这时由于没有清理栈帧数据，所以打印3；
 
@@ -339,7 +339,7 @@ int main(){
 
 由于PostAt 的形参 ay 为 main 中 局部变量 ay的别名，所以 ay 一直存在；这时可以使用引用返回。引用返回 减少了值拷贝 ，不必将其拷贝到临时变量中返回；并且由于是引用返回，我们也可以 修改返回对象 。
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=Y2UyMTM5YjQwMWNjOThiYzA3YWUzZjMxMTlmMzFkYjNfbGhqSlhyaFRNWU9TaEN3ZENzY2drMkJ6WjVyYkJzUWFfVG9rZW46Ym94Y25BRHdLdVBSVXlhenpycU0wa0RXcHBkXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212756285](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172127434.png)
 
 总结提炼：如果出了作用域，返回变量（静态，全局，上一层栈帧，malloc等）仍然存在，则可以使用引用返回。
 
@@ -379,7 +379,7 @@ void TestReturnByRefOrValue(){    // 以值作为函数的返回值类型
 
 由于传值返回要拷贝，所以当拷贝量大，次数多时，比较耗费时间；而传引用返回就不会，因为返回的就是别名。
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmRjYTE1MjFiYmYyMDIyZWJmYjM1ZTExNWY3YWExYWJfemJLQmFDUFVZS05MR3FUcDNBYmNIbG5QbjF0eGlGeTBfVG9rZW46Ym94Y25vUFg3WVkwOGRueGJaeGZzbFR2M0FjXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212828002](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172128563.png)
 
 对于返回函数作用域还在的情况，引用返回优先。
 
@@ -412,7 +412,7 @@ int main(){
 
 还是引用快，因为引用减少拷贝次数：
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=YjU3ZjljNTkxNDBiNmUxNTMwOTgyODhmMGIxYmM2MzRfNzQ4eFlpT3BDdWpDWWY3dGtRYm5XRHhlamhTTm96NWlfVG9rZW46Ym94Y25sbHIyU2VMcFdaQWwwWnU3VEh4UWNkXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212846477](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172128896.png)
 
 总结：引用的作用主要体现在传参和传返回值
 
@@ -423,17 +423,17 @@ int main(){
 
 const 修饰的是常变量，不可修改。
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=N2UwYjY1Y2QyNDljMmQyYmQ0NzlmYjVmNjQwOTU0YzNfSEFqTGJjS3RLZ09YaExIdkxWYXRBMWpEQlpGTHdZQUdfVG9rZW46Ym94Y25pd0JLcmpiSzNNN1NySHE4WHRzcXhmXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212901000](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172129154.png)
 
 a本身都不能修改，b为a的引用，那么b也不可以修改，这样就没意义了。a是只读，但是引用b具有可读可写的权利，该情况为权限放大，所以错误了。
 
 这时，只要加 const 修饰 b ，让 b 的权限也只有只读，使得 权限不变 ，就没问题了：
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=YzMxM2E4NTJkMDc4ZjA5YjRjZGFlZGZhN2ExMzE1ZDNfUkZJWEsxRnhKdE13Q0hNVW9uNFZIV3pTNVFXUFRBd1JfVG9rZW46Ym94Y250d3RvODJwVUdlZ0lKckpvUUcwR2ZmXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212918151](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172129989.png)
 
 而如果原先变量可读可写，但是别名用 const 修饰，也是可以的，这种情况为 权限缩小 ：
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=YzQxZmQ2NjdiNjMwMTJlNDk4YmJiN2QzYjc0YTgyOTFfZlc0dFZNcWZObmxsa09ZeGpnczVJbHpYYkxJNFEzRDJfVG9rZW46Ym94Y24xOUFWeHFlNU43YldVemsxdkp2VmxoXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212933755](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172129251.png)
 
 对于函数的返回值来说，也不能权限放大，例如：
 
@@ -457,11 +457,11 @@ const int& ret = c(1, 2)
 
 那么这种情况为什么不可以？
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=MTE2MzRlNmVlNzMzMTYxODA1YzgzMWE5ZTZjYTJmNjFfRkRSNTlPUDN5Y011V29WcmFKbTBkajM5WW43SkdIUVNfVG9rZW46Ym94Y25MRVpMNHVLeVBIUzhvNTJuVzg4M2VnXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117212951441](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172129815.png)
 
 而这样就可以了？
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=ODliMGQ5NTkxMWZiZjcxMjBkYjY3NTAyZmZlNTNiMWZfbXlnWnUyVENkNkZBR2t5T3FmOHR1MVBuY2MwbjAzUVlfVG9rZW46Ym94Y25FSmVoeDYwQU5ZUUdseVJCMzdoZ29UXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117213006827](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172130163.png)
 
 因为类型转换会产生临时变量 ：
 
@@ -471,11 +471,11 @@ const int& ret = c(1, 2)
 
 **小结：对于引用，引用后的变量所具权限可以缩小或不变，但是不能放大（指针也适用这个说法）作用 ：在一些场景下，假设 x 是一个大对象，或者是深拷贝对象，那一般都会用引用传参，减少拷贝，如果函数中不改变 x ，尽量用 const 引用传参。**
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=OGQ3M2RhODUyYjNlNmYzMWY4Y2E3OTIwYTc4YTdhOWFfcW1VQjhNY3R0V2RsOUZDalVXQk1lWjFaSUFGRUpZTUNfVG9rZW46Ym94Y25ib2VmaHU5andMbmpDRDBLbTRiSkhiXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117213021436](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172130744.png)
 
 这样可以防止 x 被修改 ，而对于 const int& x 也可以接受权限对等或缩小的对象，甚至为常量：
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=Y2E2MGM4MmI0YzQ2YzgxYTg1ZDQxNmJhYWU3ZTRiNGVfaE9DZjBwVlkwVVd0ajZVZ3hYbllwenh1Nk9TeE8xZ0pfVG9rZW46Ym94Y25qS1RxZ1BpSVpwNFd5aVZEZ3FlYkdnXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117213038286](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172130477.png)
 
 结论 ：const type& 可以接收各种类型的对象（变量、常量、隐式转换）。对于输出型参数用引用，否则用 const type&，更加安全。
 
@@ -496,7 +496,7 @@ int main(){
 
 汇编：
 
-![img](https://vnkshn64w3.feishu.cn/space/api/box/stream/download/asynccode/?code=NjZlMTMxZmM2NzgwNzE2ODNmMTkyMmM2ZTVjYmI2MzJfTU9vWm5KcU41bGZibXFEUDZrc2pkUnFMZU9uaGlaWFNfVG9rZW46Ym94Y24wOUtONHVJcG11MUs5S2JEcXZ1c0lnXzE3MDI4MDY1MDA6MTcwMjgxMDEwMF9WNA)
+![image-20240117213054176](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172130427.png)
 
 lea 是取地址：我们发现无论引用和指针，都会取地址，且这些过程和指针一样。其实从汇编上，引用其实是开空间的，并且实现方式和指针一样，引用其实也是用指针实现的。区别汇总：
 

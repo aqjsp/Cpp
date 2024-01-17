@@ -4,7 +4,7 @@
 
 传统的C++（C++11标准之前）中并没有引入线程这个概念，在C++11出来之前，如果我们想要在C++中实现多线程，需要借助操作系统平台提供的API，比如Linux的<pthread.h>，或者windows下的<windows.h> 。C++11提供了语言层面上的多线程，包含在头文件<thread>中。它解决了跨平台的问题，提供了管理线程、保护共享数据、线程间同步操作、原子操作等类。C++11 新标准中引入了5个头文件来支持多线程编程，如下图所示：
 
-![image-20240112002117267](https://raw.githubusercontent.com/aqinzz/Pictures/main/202401120021842.png)
+![image-20240117204440066](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172044506.png)
 
 ### 1.1、多进程与多线程
 
@@ -27,13 +27,13 @@
 
 一个时间片运行一个线程的代码，并不是真正意义的并行计算。
 
-![image-20240112002149540](https://raw.githubusercontent.com/aqinzz/Pictures/main/202401120021497.png)
+![image-20240117204503766](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172045198.png)
 
 - 多个cpu或者多个内核
 
 可以做到真正的并行计算。
 
-![image-20240112002206072](https://raw.githubusercontent.com/aqinzz/Pictures/main/202401120022386.png)
+![image-20240117204524215](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172045519.png)
 
 ### 1.3、创建线程
 
@@ -197,6 +197,13 @@ this_thread::sleep_until(system_clock::from_time_t(mktime(ptm)));
 ## 2、mutex
 
 mutex头文件主要声明了与互斥量(mutex)相关的类。mutex提供了4种互斥类型，如下表所示。
+
+| 类型                       | 说明                |
+| -------------------------- | ------------------- |
+| std::mutex                 | 最基本的 Mutex 类。 |
+| std::recursive_mutex       | 递归 Mutex 类。     |
+| std::time_mutex            | 定时 Mutex 类。     |
+| std::recursive_timed_mutex | 定时递归 Mutex 类。 |
 
 std::mutex 是C++11 中最基本的互斥量，std::mutex 对象提供了独占所有权的特性——即不支持递归地对 std::mutex 对象上锁，而 std::recursive_lock 则可以递归地对互斥量对象上锁。
 
