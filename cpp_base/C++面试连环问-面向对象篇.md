@@ -413,6 +413,357 @@ int main()
   - 建立公共溢出区存储所有哈希冲突的数据。
   - 对于冲突的哈希值再次进行哈希处理，直至没有哈希冲突。
 
+### 1. 开放定址法（Open Addressing）
+
+开放定址法也称为闭散列法，当发生哈希冲突时，会在哈希表中寻找下一个空闲的位置来存储冲突的元素。常见的开放定址法有以下几种：
+
+#### 1.1 线性探测（Linear Probing）
+
+线性探测是最简单的开放定址法。当发生冲突时，从冲突的位置开始，依次向后查找，直到找到一个空闲的位置。
+
+公式： 
+
+![公式](https://cdn.jsdelivr.net/gh/aqjsp/Pictures/image-20241117004537044.png)
+
+优点：实现简单。
+
+缺点：容易产生聚集现象，即冲突的元素会集中在某些区域，导致后续的插入操作变得缓慢。
+
+示例：
+
+```c
+int hash(int key, int table_size) {
+    return key % table_size;
+}
+
+int linear_probe(int table[], int key, int table_size) {
+    int index = hash(key, table_size);
+    int i = 0;
+    while (table[(index + i) % table_size] != -1 && i < table_size) {
+        i++;
+    }
+    return (index + i) % table_size;
+}
+```
+
+#### 1.2 二次探测（Quadratic Probing）
+
+二次探测通过增加探测步长的平方来减少线性探测中的聚集现象。
+
+**公式**： hi(key)=(h(key)+c1i+c2i2)mod  m*h**i*(*k**ey*)=(*h*(*k**ey*)+*c*1*i*+*c*2*i*2)mod*m* 其中 c1*c*1 和 c2*c*2 是常数，通常 c1=1*c*1=1 和 c2=1*c*2=1。
+
+**优点**：
+
+- 减少了线性探测中的聚集现象。
+
+**缺点**：
+
+- 仍然可能存在二次聚集现象，即不同键的探测路径可能会重叠。
+
+**示例**：
+
+cpp
+
+深色版本
+
+
+
+```
+int quadratic_probe(int table[], int key, int table_size) {
+    int index = hash(key, table_size);
+    int i = 0;
+    while (table[(index + i * i) % table_size] != -1 && i < table_size) {
+        i++;
+    }
+    return (index + i * i) % table_size;
+}
+```
+
+#### 1.3 双散列（Double Hashing）
+
+双散列使用两个不同的哈希函数来减少聚集现象。第一个哈希函数确定初始位置，第二个哈希函数确定步长。
+
+**公式**： hi(key)=(h1(key)+i⋅h2(key))mod  m*h**i*(*k**ey*)=(*h*1(*k**ey*)+*i*⋅*h*2(*k**ey*))mod*m* 其中 h1(key)*h*1(*k**ey*) 和 h2(key)*h*2(*k**ey*) 是两个不同的哈希函数。
+
+**优点**：
+
+- 进一步减少了聚集现象。
+
+**缺点**：
+
+- 实现稍微复杂一些。
+
+**示例**：
+
+cpp
+
+深色版本
+
+
+
+```
+int hash1(int key, int table_size) {
+    return key % table_size;
+}
+
+int hash2(int key, int table_size) {
+    return 1 + (key % (table_size - 1));
+}
+
+int double_hashing(int table[], int key, int table_size) {
+    int index = hash1(key, table_size);
+    int step = hash2(key, table_size);
+    int i = 0;
+    while (table[(index + i * step) % table_size] != -1 && i < table_size) {
+        i++;
+    }
+    return (index + i * step) % table_size;
+}
+```
+
+### 2. 链地址法（Separate Chaining）
+
+链地址法也称为开散列法，当发生冲突时，将冲突的元素存储在一个链表中。每个哈希表的位置（桶）存储一个链表的头指针。
+
+**优点**：
+
+- 实现简单。
+- 不容易产生聚集现象。
+- 适合处理大量数据。
+
+**缺点**：
+
+- 需要额外的内存来存储链表节点。
+- 插入和查找操作的性能取决于链表的长度。
+
+**示例**：
+
+cpp
+
+深色版本
+
+
+
+```
+struct ListNode {
+    int key;
+    ListNode* next;
+};
+
+class HashTable {
+private:
+    int table_size;
+    ListNode** table;
+
+public:
+    HashTable(int size) : table_size(size) {
+        table = new ListNode*[table_size];
+        for (int i = 0; i < table_size; i++) {
+            table[i] = nullptr;
+        }
+    }
+
+    ~HashTable() {
+        for (int i = 0; i < table_size; i++) {
+            ListNode* node = table[i];
+            while (node) {
+                ListNode* temp = node;
+                node = node->next;
+                delete temp;
+            }
+        }
+        delete[] table;
+    }
+
+    int hash(int key) {
+        return key % table_size;
+    }
+
+    void insert(int key) {
+        int index = hash(key);
+        ListNode* new_node = new ListNode();
+        new_node->key = key;
+        new_node->next = table[index];
+        table[index] = new_node;
+    }
+
+    bool find(int key) {
+        int index = hash(key);
+        ListNode* node = table[index];
+        while (node) {
+            if (node->key == key) {
+                return true;
+            }
+            node = node->next;
+        }
+        return false;
+    }
+
+    void remove(int key) {
+        int index = hash(key);
+        ListNode* node = table[index];
+        ListNode* prev = nullptr;
+        while (node) {
+            if (node->key == key) {
+                if (prev) {
+                    prev->next = node->next;
+                } else {
+                    table[index] = node->next;
+                }
+                delete node;
+                return;
+            }
+            prev = node;
+            node = node->next;
+        }
+    }
+};
+```
+
+### 3. 再哈希法（Rehashing）
+
+再哈希法使用多个不同的哈希函数，当发生冲突时，依次使用这些哈希函数计算新的位置，直到找到一个空闲的位置。
+
+**优点**：
+
+- 减少了聚集现象。
+
+**缺点**：
+
+- 计算时间增加。
+- 需要管理多个哈希函数。
+
+**示例**：
+
+cpp
+
+深色版本
+
+
+
+```
+int rehash1(int key, int table_size) {
+    return key % table_size;
+}
+
+int rehash2(int key, int table_size) {
+    return 1 + (key % (table_size - 1));
+}
+
+int rehash3(int key, int table_size) {
+    return key % (table_size - 2);
+}
+
+int resolve_conflict(int table[], int key, int table_size) {
+    int index = rehash1(key, table_size);
+    if (table[index] == -1) {
+        return index;
+    }
+    index = rehash2(key, table_size);
+    if (table[index] == -1) {
+        return index;
+    }
+    index = rehash3(key, table_size);
+    if (table[index] == -1) {
+        return index;
+    }
+    return -1; // 表已满
+}
+```
+
+### 4. 建立公共溢出区（Overflow Area）
+
+建立公共溢出区的方法是将哈希表分为基本表和溢出表两部分，当发生冲突时，将冲突的元素存储在溢出表中。
+
+**优点**：
+
+- 简单易实现。
+
+**缺点**：
+
+- 需要额外的内存来存储溢出表。
+- 插入和查找操作的性能取决于溢出表的长度。
+
+**示例**：
+
+cpp
+
+深色版本
+
+
+
+```
+class HashTable {
+private:
+    int* basic_table;
+    int* overflow_table;
+    int basic_size;
+    int overflow_size;
+    int overflow_count;
+
+public:
+    HashTable(int size) : basic_size(size), overflow_size(size), overflow_count(0) {
+        basic_table = new int[basic_size];
+        overflow_table = new int[overflow_size];
+        for (int i = 0; i < basic_size; i++) {
+            basic_table[i] = -1;
+        }
+        for (int i = 0; i < overflow_size; i++) {
+            overflow_table[i] = -1;
+        }
+    }
+
+    ~HashTable() {
+        delete[] basic_table;
+        delete[] overflow_table;
+    }
+
+    int hash(int key) {
+        return key % basic_size;
+    }
+
+    void insert(int key) {
+        int index = hash(key);
+        if (basic_table[index] == -1) {
+            basic_table[index] = key;
+        } else {
+            if (overflow_count < overflow_size) {
+                overflow_table[overflow_count++] = key;
+            } else {
+                std::cerr << "Overflow area is full!" << std::endl;
+            }
+        }
+    }
+
+    bool find(int key) {
+        int index = hash(key);
+        if (basic_table[index] == key) {
+            return true;
+        }
+        for (int i = 0; i < overflow_count; i++) {
+            if (overflow_table[i] == key) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void remove(int key) {
+        int index = hash(key);
+        if (basic_table[index] == key) {
+            basic_table[index] = -1;
+        } else {
+            for (int i = 0; i < overflow_count; i++) {
+                if (overflow_table[i] == key) {
+                    overflow_table[i] = -1;
+                    break;
+                }
+            }
+        }
+    }
+};
+```
+
 ## 21、C++强制转换
 
 1. static_cast
