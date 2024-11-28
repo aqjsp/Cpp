@@ -450,25 +450,17 @@ int linear_probe(int table[], int key, int table_size) {
 
 二次探测通过增加探测步长的平方来减少线性探测中的聚集现象。
 
-**公式**： hi(key)=(h(key)+c1i+c2i2)mod  m*h**i*(*k**ey*)=(*h*(*k**ey*)+*c*1*i*+*c*2*i*2)mod*m* 其中 c1*c*1 和 c2*c*2 是常数，通常 c1=1*c*1=1 和 c2=1*c*2=1。
+公式：
 
-**优点**：
+![公式](https://cdn.jsdelivr.net/gh/aqjsp/Pictures/image-20241117004646513.png)
 
-- 减少了线性探测中的聚集现象。
+优点：减少了线性探测中的聚集现象。
 
-**缺点**：
+缺点：仍然可能存在二次聚集现象，即不同键的探测路径可能会重叠。
 
-- 仍然可能存在二次聚集现象，即不同键的探测路径可能会重叠。
+示例：
 
-**示例**：
-
-cpp
-
-深色版本
-
-
-
-```
+```c
 int quadratic_probe(int table[], int key, int table_size) {
     int index = hash(key, table_size);
     int i = 0;
@@ -483,25 +475,17 @@ int quadratic_probe(int table[], int key, int table_size) {
 
 双散列使用两个不同的哈希函数来减少聚集现象。第一个哈希函数确定初始位置，第二个哈希函数确定步长。
 
-**公式**： hi(key)=(h1(key)+i⋅h2(key))mod  m*h**i*(*k**ey*)=(*h*1(*k**ey*)+*i*⋅*h*2(*k**ey*))mod*m* 其中 h1(key)*h*1(*k**ey*) 和 h2(key)*h*2(*k**ey*) 是两个不同的哈希函数。
+公式：
 
-**优点**：
+![公式](https://cdn.jsdelivr.net/gh/aqjsp/Pictures/image-20241117004728110.png)
 
-- 进一步减少了聚集现象。
+优点：进一步减少了聚集现象。
 
-**缺点**：
+缺点：实现稍微复杂一些。
 
-- 实现稍微复杂一些。
+示例：
 
-**示例**：
-
-cpp
-
-深色版本
-
-
-
-```
+```c
 int hash1(int key, int table_size) {
     return key % table_size;
 }
@@ -525,26 +509,20 @@ int double_hashing(int table[], int key, int table_size) {
 
 链地址法也称为开散列法，当发生冲突时，将冲突的元素存储在一个链表中。每个哈希表的位置（桶）存储一个链表的头指针。
 
-**优点**：
+优点：
 
 - 实现简单。
 - 不容易产生聚集现象。
 - 适合处理大量数据。
 
-**缺点**：
+缺点：
 
 - 需要额外的内存来存储链表节点。
 - 插入和查找操作的性能取决于链表的长度。
 
-**示例**：
+示例：
 
-cpp
-
-深色版本
-
-
-
-```
+```c
 struct ListNode {
     int key;
     ListNode* next;
@@ -624,24 +602,16 @@ public:
 
 再哈希法使用多个不同的哈希函数，当发生冲突时，依次使用这些哈希函数计算新的位置，直到找到一个空闲的位置。
 
-**优点**：
+优点：减少了聚集现象。
 
-- 减少了聚集现象。
-
-**缺点**：
+缺点：
 
 - 计算时间增加。
 - 需要管理多个哈希函数。
 
-**示例**：
+示例：
 
-cpp
-
-深色版本
-
-
-
-```
+```c
 int rehash1(int key, int table_size) {
     return key % table_size;
 }
@@ -675,24 +645,16 @@ int resolve_conflict(int table[], int key, int table_size) {
 
 建立公共溢出区的方法是将哈希表分为基本表和溢出表两部分，当发生冲突时，将冲突的元素存储在溢出表中。
 
-**优点**：
+优点：简单易实现。
 
-- 简单易实现。
-
-**缺点**：
+缺点：
 
 - 需要额外的内存来存储溢出表。
 - 插入和查找操作的性能取决于溢出表的长度。
 
-**示例**：
+示例：
 
-cpp
-
-深色版本
-
-
-
-```
+```c
 class HashTable {
 private:
     int* basic_table;
