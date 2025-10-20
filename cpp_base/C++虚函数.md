@@ -14,7 +14,7 @@
 
 示例：
 
-```C
+```cpp
 #include <iostream>
 #include <string>
 
@@ -69,7 +69,7 @@ int main() {
 
 示例：
 
-```C
+```cpp
 #include <iostream>
 #include <string>
 
@@ -121,7 +121,7 @@ int main() {
 
 示例：
 
-```C
+```cpp
 #include <iostream>
 #include <vector>
 
@@ -172,7 +172,7 @@ int main() {
 
 对于C++了解的人都应该知道虚函数是通过一个虚函数表来实现的。在这个表中，主要是一个类的虚函数的地址表，这个表解决了继承、覆盖的问题，保证其真实反应实际的函数。这样的话，在有虚函数的类的实例中，这个表被分配在这个实例的内存中。当我们用父类的指针操作其子类的时候，这个虚表就非常重要了，它指明了实际所应该调用的函数。
 
-```C
+```cpp
 class A {
 public:
     virtual void v_a(){}
@@ -188,7 +188,7 @@ int main()
 
  定义一个类A，那么它在内存中分布的情况是什么样的呢？接下来一起看看
 
-![image-20240117205042101](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172050214.png)
+![](https://cdn.jsdelivr.net/gh/aqjsp/photos/202401172050214.png)
 
 - 首先在主函数的栈帧上有一个 A 类型的指针指向堆里面分配好的对象 A 实例。
 - 对象 A 实例的**头部**是一个 vtable 指针，紧接着是 **A 对象按照声明顺序排列的成员变量**。（当我们创建一个对象时，便可以通过实例对象的地址，得到该实例的虚函数表，从而获取其函数指针。）
@@ -216,7 +216,7 @@ int main()
 
 先来定义一个基类：
 
-```C
+```cpp
 class Panent
 {
 public:
@@ -228,11 +228,11 @@ public:
 
 对于基类Base的虚函数表记录的只有自己定义的虚函数。
 
-![image-20240117205110210](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172051300.png)
+![](https://cdn.jsdelivr.net/gh/aqjsp/photos/202401172051300.png)
 
 下来再看看子类：
 
-```C
+```cpp
 class Children: public Panent
 {
 public:
@@ -244,19 +244,19 @@ public:
 
 最常见的继承，就是子类对基类的虚函数进行覆盖继承。
 
-![image-20240117205130330](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172051445.png)
+![](https://cdn.jsdelivr.net/gh/aqjsp/photos/202401172051445.png)
 
 此时的虚函数表：
 
-![image-20240117205150185](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172051315.png)
+![](https://cdn.jsdelivr.net/gh/aqjsp/photos/202401172051315.png)
 
 基函数的表项仍然会保留，而得到正确继承的虚函数的指针将会被覆盖，而子类自己的虚函数将跟在表后。
 
 当多继承的时候，表项将会增多，顺序将会体现为继承的顺序，那么子类的虚函数就跟在第一个表项后。
 
-![image-20240117205208913](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172052922.png)
+![](https://cdn.jsdelivr.net/gh/aqjsp/photos/202401172052922.png)
 
-![image-20240117205229722](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172052833.png)
+![](https://cdn.jsdelivr.net/gh/aqjsp/photos/202401172052833.png)
 
 C++中一个类是公用一个虚函数表的，基类有基类的虚函数表，子类有子类的虚函数表，这样极大的节省了内存。
 
