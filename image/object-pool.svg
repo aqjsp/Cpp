@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" font-family="system-ui, -apple-system, sans-serif">
+  <rect width="900" height="360" rx="12" fill="#fafafa"/>
+  <rect width="900" height="360" rx="12" fill="none" stroke="#e0e0e0"/>
+  <text x="450" y="32" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a2e">对象池：acquire 从空闲链表取出，unique_ptr deleter 还回</text>
+
+  <rect x="24" y="50" width="280" height="210" rx="10" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+  <text x="164" y="76" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565c0">ObjectPool&lt;Packet&gt;</text>
+  <rect x="44" y="90" width="240" height="36" rx="6" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="164" y="114" text-anchor="middle" font-size="12" fill="#0d47a1">mutex 护空闲栈</text>
+  <rect x="44" y="136" width="240" height="28" rx="4" fill="#fff" stroke="#1565c0"/>
+  <text x="164" y="155" text-anchor="middle" font-size="11" font-family="ui-monospace, monospace">free_  [P3][P2][P1]</text>
+  <rect x="44" y="172" width="240" height="28" rx="4" fill="#fff" stroke="#1565c0"/>
+  <text x="164" y="191" text-anchor="middle" font-size="11" font-family="ui-monospace, monospace">owned_ 真正 delete 点</text>
+  <text x="164" y="224" text-anchor="middle" font-size="11" fill="#1565c0">空则 new T，达上限返回空</text>
+  <text x="164" y="244" text-anchor="middle" font-size="11" fill="#546e7a">不是通用 allocator</text>
+
+  <text x="350" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#e65100">acquire</text>
+  <line x1="304" y1="150" x2="348" y2="150" stroke="#e65100" stroke-width="2"/>
+  <polygon points="348,150 336,144 336,156" fill="#e65100"/>
+  <text x="350" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#2e7d32">release</text>
+  <line x1="348" y1="180" x2="304" y2="180" stroke="#2e7d32" stroke-width="2"/>
+  <polygon points="304,180 316,174 316,186" fill="#2e7d32"/>
+
+  <rect x="360" y="50" width="250" height="210" rx="10" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+  <text x="485" y="76" text-anchor="middle" font-size="13" font-weight="bold" fill="#e65100">在外：unique_ptr + Deleter</text>
+  <rect x="380" y="96" width="210" height="70" rx="8" fill="#ffe0b2" stroke="#e65100"/>
+  <text x="485" y="124" text-anchor="middle" font-size="13" font-weight="bold" fill="#bf360c">Packet P3</text>
+  <text x="485" y="146" text-anchor="middle" font-size="11" fill="#e65100">同一时刻只有一个 Ptr 持有</text>
+  <text x="485" y="190" text-anchor="middle" font-size="12" fill="#e65100">析构 → deleter → reset()</text>
+  <text x="485" y="210" text-anchor="middle" font-size="12" fill="#e65100">再推进 free_，不 delete</text>
+  <text x="485" y="236" text-anchor="middle" font-size="11" fill="#5d4037">调用方不要自己调 release</text>
+
+  <rect x="626" y="50" width="250" height="210" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="751" y="76" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">reset 清逻辑，留 capacity</text>
+  <text x="646" y="108" font-size="12" fill="#2e7d32">bytes.clear() 不 shrink</text>
+  <text x="646" y="130" font-size="12" fill="#2e7d32">type / seq 归零</text>
+  <text x="646" y="152" font-size="12" fill="#2e7d32">下一轮 fill 少一次堆分配</text>
+  <text x="646" y="180" font-size="12" fill="#c62828">reset 必须 noexcept</text>
+  <text x="646" y="202" font-size="12" fill="#e65100">池必须活过所有 Ptr</text>
+  <text x="646" y="224" font-size="11" fill="#546e7a">链表安全 ≠ Payload 安全</text>
+  <text x="751" y="246" text-anchor="middle" font-size="11" fill="#78909c">RSS 按峰值留，不会自缩</text>
+
+  <rect x="24" y="274" width="852" height="62" rx="8" fill="#fff8e1" stroke="#f9a825"/>
+  <text x="44" y="298" font-size="13" fill="#5d4037">热路径避开全局 operator new。Go sync.Pool 还回去可能被 GC 清；C++ 池里的对象活到你析构池。</text>
+  <text x="44" y="320" font-size="12" fill="#78909c">异常路径 deleter 同样还。T 在外期间 mutex 不管 T 的字段。侵入式 next 省间接，教学用 vector&lt;T*&gt; 当栈不污染 Packet。</text>
+</svg>

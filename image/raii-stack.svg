@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" font-family="system-ui, -apple-system, sans-serif">
+  <rect width="900" height="360" rx="12" fill="#fafafa"/>
+  <rect width="900" height="360" rx="12" fill="none" stroke="#e0e0e0"/>
+  <text x="450" y="32" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a2e">栈展开：new 后 throw，无 RAII 泄漏 vs unique_ptr 释放</text>
+
+  <rect x="24" y="50" width="420" height="248" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+  <text x="234" y="78" text-anchor="middle" font-size="14" font-weight="bold" fill="#b71c1c">无 RAII：裸指针</text>
+  <text x="44" y="104" font-size="12" font-family="ui-monospace, monospace" fill="#c62828">int* p = new int{1};</text>
+  <text x="44" y="124" font-size="12" font-family="ui-monospace, monospace" fill="#c62828">throw runtime_error("boom");</text>
+  <text x="44" y="144" font-size="12" font-family="ui-monospace, monospace" fill="#90a4ae">delete p;  // 走不到</text>
+
+  <rect x="44" y="160" width="180" height="70" rx="6" fill="#fff" stroke="#c62828"/>
+  <text x="134" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#b71c1c">栈上 p</text>
+  <text x="134" y="206" text-anchor="middle" font-size="11" fill="#c62828">盒子随栈帧没了</text>
+  <rect x="250" y="160" width="170" height="70" rx="6" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="335" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#b71c1c">堆上 int</text>
+  <text x="335" y="206" text-anchor="middle" font-size="11" fill="#c62828">4 字节无人认领</text>
+  <line x1="224" y1="195" x2="248" y2="195" stroke="#c62828" stroke-width="2"/>
+  <polygon points="248,195 236,189 236,201" fill="#c62828"/>
+  <text x="234" y="254" text-anchor="middle" font-size="12" fill="#c62828">栈展开只析构已构造完的自动对象</text>
+  <text x="234" y="276" text-anchor="middle" font-size="11" fill="#e57373">不会自动 delete 裸指针所指</text>
+
+  <rect x="456" y="50" width="420" height="248" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="666" y="78" text-anchor="middle" font-size="14" font-weight="bold" fill="#1b5e20">有 RAII：unique_ptr</text>
+  <text x="476" y="104" font-size="12" font-family="ui-monospace, monospace" fill="#2e7d32">auto p = make_unique&lt;int&gt;(1);</text>
+  <text x="476" y="124" font-size="12" font-family="ui-monospace, monospace" fill="#2e7d32">throw runtime_error("boom");</text>
+  <text x="476" y="144" font-size="12" font-family="ui-monospace, monospace" fill="#2e7d32">// ~unique_ptr 在展开时跑</text>
+
+  <rect x="476" y="160" width="180" height="70" rx="6" fill="#fff" stroke="#2e7d32"/>
+  <text x="566" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#1b5e20">栈上 unique_ptr</text>
+  <text x="566" y="206" text-anchor="middle" font-size="11" fill="#2e7d32">析构调删除器</text>
+  <rect x="682" y="160" width="170" height="70" rx="6" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="767" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#1b5e20">堆上 int</text>
+  <text x="767" y="206" text-anchor="middle" font-size="11" fill="#2e7d32">delete，还给堆</text>
+  <line x1="656" y1="195" x2="680" y2="195" stroke="#2e7d32" stroke-width="2"/>
+  <polygon points="680,195 668,189 668,201" fill="#2e7d32"/>
+  <text x="666" y="254" text-anchor="middle" font-size="12" fill="#2e7d32">释放点焊到自动对象的析构上</text>
+  <text x="666" y="276" text-anchor="middle" font-size="11" fill="#66bb6a">异常路径和 return 同一条合同</text>
+
+  <text x="450" y="326" text-anchor="middle" font-size="12" fill="#546e7a">Python / Go 有 GC，raise / panic 扫得到堆。C++ 没有 GC：堆活到你 delete，或活到拥有它的对象析构。</text>
+  <text x="450" y="348" text-anchor="middle" font-size="11" fill="#78909c">new 构造抛异常会先释放裸内存再继续抛，不会漏那块；漏的是你已经拿到的裸 T*。</text>
+</svg>

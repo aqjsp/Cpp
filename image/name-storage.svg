@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 340" font-family="system-ui, -apple-system, sans-serif">
+  <rect width="860" height="340" rx="12" fill="#fafafa"/>
+  <rect width="860" height="340" rx="12" fill="none" stroke="#e0e0e0"/>
+  <text x="430" y="32" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a2e">C++ 名字是盒子：b = a 拷贝值，不是绑同一对象</text>
+
+  <rect x="30" y="52" width="390" height="240" rx="10" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+  <text x="225" y="80" text-anchor="middle" font-size="14" font-weight="bold" fill="#1565c0">栈帧上的存储</text>
+
+  <text x="70" y="112" font-size="12" font-family="ui-monospace, monospace" fill="#1565c0">int a = 1;</text>
+  <rect x="70" y="122" width="140" height="52" rx="6" fill="#fff" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="140" y="144" text-anchor="middle" font-size="13" font-weight="bold" fill="#0d47a1">a</text>
+  <text x="140" y="164" text-anchor="middle" font-size="11" fill="#1565c0">4 字节 · 值 1</text>
+  <text x="230" y="154" font-size="11" fill="#546e7a">地址 &amp;a 唯一</text>
+
+  <text x="70" y="202" font-size="12" font-family="ui-monospace, monospace" fill="#1565c0">int b = a;</text>
+  <rect x="70" y="212" width="140" height="52" rx="6" fill="#bbdefb" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="140" y="234" text-anchor="middle" font-size="13" font-weight="bold" fill="#0d47a1">b</text>
+  <text x="140" y="254" text-anchor="middle" font-size="11" fill="#1565c0">另 4 字节 · 拷了 1</text>
+  <text x="230" y="244" font-size="11" fill="#546e7a">地址 &amp;b ≠ &amp;a</text>
+
+  <path d="M 210 148 C 250 148, 250 238, 210 238" fill="none" stroke="#1565c0" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <polygon points="210,238 218,232 222,244" fill="#1565c0"/>
+  <text x="268" y="198" font-size="11" fill="#1565c0">位模式拷贝</text>
+
+  <rect x="440" y="52" width="390" height="240" rx="10" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+  <text x="635" y="80" text-anchor="middle" font-size="14" font-weight="bold" fill="#e65100">随后 a = 2，b 仍是 1</text>
+  <rect x="470" y="100" width="150" height="52" rx="6" fill="#ffe0b2" stroke="#e65100"/>
+  <text x="545" y="122" text-anchor="middle" font-size="13" font-weight="bold" fill="#bf360c">a = 2</text>
+  <text x="545" y="140" text-anchor="middle" font-size="11" fill="#e65100">改自己的盒子</text>
+  <rect x="650" y="100" width="150" height="52" rx="6" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="725" y="122" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">b = 1</text>
+  <text x="725" y="140" text-anchor="middle" font-size="11" fill="#2e7d32">独立副本</text>
+  <text x="635" y="180" text-anchor="middle" font-size="12" fill="#e65100">类型钉在名字上：不能再把 a 绑成 string</text>
+  <text x="635" y="204" text-anchor="middle" font-size="12" fill="#5d4037">vector b = a 也是深拷元素，缓冲独立</text>
+  <text x="635" y="228" text-anchor="middle" font-size="12" fill="#5d4037">形参 int n 同样是新盒子，调用方看不见 n++</text>
+  <text x="635" y="268" text-anchor="middle" font-size="11" fill="#78909c">局部 int 未初始化是 UB，不是 0 / None</text>
+
+  <text x="430" y="320" text-anchor="middle" font-size="12" fill="#546e7a">Python 的 b=a 复制绑定；Go 整数同值拷。C++ 把「名字 = 存储」执行得最彻底。</text>
+</svg>

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" font-family="system-ui, -apple-system, sans-serif">
+  <rect width="900" height="360" rx="12" fill="#fafafa"/>
+  <rect width="900" height="360" rx="12" fill="none" stroke="#e0e0e0"/>
+  <text x="450" y="32" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a2e">虚调用：Base* 取出 vptr，vtable 槽指向 Derived::who</text>
+
+  <rect x="24" y="50" width="200" height="150" rx="10" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+  <text x="124" y="76" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565c0">调用点</text>
+  <rect x="44" y="92" width="160" height="36" rx="6" fill="#fff" stroke="#1565c0"/>
+  <text x="124" y="116" text-anchor="middle" font-size="12" font-family="ui-monospace, monospace" fill="#0d47a1">Base* p = &amp;d</text>
+  <rect x="44" y="138" width="160" height="36" rx="6" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="124" y="162" text-anchor="middle" font-size="12" font-family="ui-monospace, monospace" fill="#0d47a1">p-&gt;who()</text>
+  <text x="124" y="188" text-anchor="middle" font-size="11" fill="#546e7a">静态类型 Base*，动态看对象</text>
+
+  <line x1="224" y1="116" x2="268" y2="116" stroke="#1565c0" stroke-width="2"/>
+  <polygon points="268,116 256,110 256,122" fill="#1565c0"/>
+
+  <rect x="272" y="50" width="240" height="150" rx="10" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+  <text x="392" y="76" text-anchor="middle" font-size="13" font-weight="bold" fill="#e65100">Derived 对象 d</text>
+  <rect x="292" y="90" width="200" height="36" rx="6" fill="#ffe0b2" stroke="#e65100"/>
+  <text x="392" y="114" text-anchor="middle" font-size="12" font-weight="bold" fill="#bf360c">vptr → Derived vtable</text>
+  <rect x="292" y="134" width="200" height="36" rx="6" fill="#fff" stroke="#e65100"/>
+  <text x="392" y="158" text-anchor="middle" font-size="12" fill="#e65100">Base 子对象 + Derived 成员</text>
+  <text x="392" y="186" text-anchor="middle" font-size="11" fill="#5d4037">64 位多 8 字节 vptr，再对齐</text>
+
+  <line x1="512" y1="108" x2="556" y2="108" stroke="#e65100" stroke-width="2"/>
+  <polygon points="556,108 544,102 544,114" fill="#e65100"/>
+
+  <rect x="560" y="50" width="316" height="150" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="718" y="76" text-anchor="middle" font-size="13" font-weight="bold" fill="#2e7d32">Derived vtable（每类一份）</text>
+  <rect x="580" y="90" width="276" height="32" rx="5" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="718" y="111" text-anchor="middle" font-size="12" font-family="ui-monospace, monospace" fill="#1b5e20">[0] Derived::who</text>
+  <rect x="580" y="128" width="276" height="32" rx="5" fill="#a5d6a7" stroke="#2e7d32"/>
+  <text x="718" y="149" text-anchor="middle" font-size="12" font-family="ui-monospace, monospace" fill="#1b5e20">[1] Derived::~Derived</text>
+  <text x="718" y="180" text-anchor="middle" font-size="11" fill="#2e7d32">槽位编译期按虚函数声明序钉死</text>
+
+  <rect x="24" y="216" width="852" height="114" rx="8" fill="#eceff1" stroke="#78909c"/>
+  <text x="44" y="242" font-size="13" font-weight="bold" fill="#37474f">派发三步：取 vptr → 按槽取函数指针 → 间接 call。p-&gt;Base::who() 不走表。</text>
+  <text x="44" y="266" font-size="12" fill="#455a64">无 virtual：p-&gt;who() 编译期钉死 Base::who，派生同名是隐藏不是覆盖。override 拦签名对不上。</text>
+  <text x="44" y="288" font-size="12" fill="#455a64">按值传 Base 会切片，动态类型砍掉。必须指针或引用才虚调用。基类指针 delete 无虚析构是 UB。</text>
+  <text x="44" y="314" font-size="11" fill="#78909c">Go 接口把 itable 放在接口值里，对象不加 vptr。Python 方法查找全是运行时。C++ 默认静态绑定，virtual 才是开关。</text>
+</svg>

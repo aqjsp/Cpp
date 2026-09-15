@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" font-family="system-ui, -apple-system, sans-serif">
+  <rect width="900" height="360" rx="12" fill="#fafafa"/>
+  <rect width="900" height="360" rx="12" fill="none" stroke="#e0e0e0"/>
+  <text x="450" y="32" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a2e">shared_ptr：两个指针，对象和控制块分开（或 make_shared 打在一块）</text>
+
+  <rect x="24" y="50" width="250" height="200" rx="10" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+  <text x="149" y="76" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565c0">shared_ptr&lt;T&gt; p</text>
+  <rect x="44" y="92" width="210" height="44" rx="6" fill="#fff" stroke="#1565c0"/>
+  <text x="149" y="112" text-anchor="middle" font-size="12" font-weight="bold" fill="#0d47a1">px → T*</text>
+  <text x="149" y="128" text-anchor="middle" font-size="11" fill="#1565c0">解引用用这个</text>
+  <rect x="44" y="148" width="210" height="44" rx="6" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="149" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#0d47a1">pn → 控制块</text>
+  <text x="149" y="184" text-anchor="middle" font-size="11" fill="#1565c0">拷贝只动这一层</text>
+  <text x="149" y="218" text-anchor="middle" font-size="11" fill="#546e7a">拷贝 = 拷两地址 + 原子 ++</text>
+  <text x="149" y="236" text-anchor="middle" font-size="11" fill="#546e7a">q = p 后 use_count == 2</text>
+
+  <line x1="274" y1="114" x2="318" y2="114" stroke="#e65100" stroke-width="2"/>
+  <polygon points="318,114 306,108 306,120" fill="#e65100"/>
+  <line x1="274" y1="170" x2="318" y2="210" stroke="#1565c0" stroke-width="2"/>
+  <polygon points="318,210 306,202 312,218" fill="#1565c0"/>
+
+  <rect x="322" y="50" width="250" height="90" rx="10" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+  <text x="447" y="78" text-anchor="middle" font-size="13" font-weight="bold" fill="#e65100">堆上 T 对象</text>
+  <text x="447" y="100" text-anchor="middle" font-size="12" fill="#e65100">Widget { int n; }</text>
+  <text x="447" y="122" text-anchor="middle" font-size="11" fill="#bf360c">T 自己没有引用计数</text>
+
+  <rect x="322" y="154" width="250" height="96" rx="10" fill="#e8eaf6" stroke="#3f51b5" stroke-width="2"/>
+  <text x="447" y="178" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a237e">控制块</text>
+  <text x="447" y="200" text-anchor="middle" font-size="12" fill="#3949ab">强引用 use_count</text>
+  <text x="447" y="218" text-anchor="middle" font-size="12" fill="#3949ab">弱引用 weak_count</text>
+  <text x="447" y="236" text-anchor="middle" font-size="11" fill="#5c6bc0">删除器 / 分配器</text>
+
+  <rect x="588" y="50" width="288" height="200" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="732" y="76" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">合同边界</text>
+  <text x="608" y="104" font-size="12" fill="#2e7d32">计数增减：原子，线程安全</text>
+  <text x="608" y="126" font-size="12" fill="#c62828">*p / p-&gt;n：普通 T，不保护</text>
+  <text x="608" y="148" font-size="12" fill="#2e7d32">强计数到 0：析构 T</text>
+  <text x="608" y="170" font-size="12" fill="#2e7d32">弱也到 0：释放控制块</text>
+  <text x="608" y="192" font-size="12" fill="#e65100">make_shared：一次分配相邻</text>
+  <text x="608" y="214" font-size="12" fill="#e65100">弱引用会把整块 T 钉住</text>
+  <text x="732" y="236" text-anchor="middle" font-size="11" fill="#546e7a">环必须一边改 weak_ptr</text>
+
+  <rect x="24" y="266" width="852" height="68" rx="8" fill="#fff8e1" stroke="#f9a825"/>
+  <text x="44" y="292" font-size="13" fill="#5d4037">两个线程各拷一份 shared_ptr：计数安全。同一段时间都写 *p：data race，UB。计数安全不是对象安全。</text>
+  <text x="44" y="316" font-size="12" fill="#78909c">共享同一个 shared_ptr 变量本身也要锁。Python RC 在对象头上；Go 无 RC，GC 扫图。C++ 在类型上选独占 / 共享 / 观察。</text>
+</svg>

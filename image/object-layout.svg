@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" font-family="system-ui, -apple-system, sans-serif">
+  <rect width="900" height="360" rx="12" fill="#fafafa"/>
+  <rect width="900" height="360" rx="12" fill="none" stroke="#e0e0e0"/>
+  <text x="450" y="32" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a2e">对象布局：声明序 + padding，空 class 至少 1 字节</text>
+
+  <rect x="24" y="50" width="280" height="168" rx="10" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+  <text x="164" y="74" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565c0">struct A { char c; int n; }</text>
+  <rect x="44" y="90" width="52" height="44" rx="4" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="70" y="110" text-anchor="middle" font-size="11" font-weight="bold">c</text>
+  <text x="70" y="126" text-anchor="middle" font-size="10" fill="#1565c0">1B</text>
+  <rect x="96" y="90" width="84" height="44" rx="4" fill="#eceff1" stroke="#90a4ae" stroke-dasharray="4 3"/>
+  <text x="138" y="110" text-anchor="middle" font-size="11" fill="#607d8b">pad</text>
+  <text x="138" y="126" text-anchor="middle" font-size="10" fill="#78909c">3B</text>
+  <rect x="180" y="90" width="100" height="44" rx="4" fill="#90caf9" stroke="#1565c0"/>
+  <text x="230" y="110" text-anchor="middle" font-size="11" font-weight="bold">n</text>
+  <text x="230" y="126" text-anchor="middle" font-size="10" fill="#0d47a1">4B @off 4</text>
+  <text x="164" y="156" text-anchor="middle" font-size="12" fill="#1565c0">sizeof(A) = 8　n 要对齐到 4</text>
+  <text x="164" y="176" text-anchor="middle" font-size="11" fill="#546e7a">this 不占对象空间</text>
+  <text x="164" y="198" text-anchor="middle" font-size="11" fill="#546e7a">成员按声明序，不是按大小重排</text>
+
+  <rect x="316" y="50" width="280" height="168" rx="10" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+  <text x="456" y="74" text-anchor="middle" font-size="13" font-weight="bold" fill="#e65100">struct B { int n; char c; }</text>
+  <rect x="336" y="90" width="100" height="44" rx="4" fill="#ffe0b2" stroke="#e65100"/>
+  <text x="386" y="110" text-anchor="middle" font-size="11" font-weight="bold">n</text>
+  <text x="386" y="126" text-anchor="middle" font-size="10" fill="#e65100">4B @off 0</text>
+  <rect x="436" y="90" width="52" height="44" rx="4" fill="#ffcc80" stroke="#e65100"/>
+  <text x="462" y="110" text-anchor="middle" font-size="11" font-weight="bold">c</text>
+  <text x="462" y="126" text-anchor="middle" font-size="10" fill="#e65100">1B</text>
+  <rect x="488" y="90" width="84" height="44" rx="4" fill="#eceff1" stroke="#90a4ae" stroke-dasharray="4 3"/>
+  <text x="530" y="110" text-anchor="middle" font-size="11" fill="#607d8b">尾 pad</text>
+  <text x="530" y="126" text-anchor="middle" font-size="10" fill="#78909c">3B</text>
+  <text x="456" y="156" text-anchor="middle" font-size="12" fill="#e65100">sizeof(B) 仍是 8</text>
+  <text x="456" y="176" text-anchor="middle" font-size="11" fill="#bf360c">尾部 padding 给数组下一元素对齐</text>
+  <text x="456" y="198" text-anchor="middle" font-size="11" fill="#5d4037">sizeof ≠ 各成员 sizeof 之和</text>
+
+  <rect x="608" y="50" width="268" height="168" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="742" y="74" text-anchor="middle" font-size="13" font-weight="bold" fill="#2e7d32">class Empty {}</text>
+  <rect x="668" y="90" width="148" height="44" rx="6" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="742" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">sizeof = 1</text>
+  <text x="742" y="156" text-anchor="middle" font-size="12" fill="#2e7d32">完整对象地址必须唯一</text>
+  <text x="742" y="176" text-anchor="middle" font-size="11" fill="#1b5e20">&amp;a != &amp;b，Empty a[10] 才能算指针</text>
+  <text x="742" y="198" text-anchor="middle" font-size="11" fill="#546e7a">Go struct{} 才是 0 大小</text>
+
+  <rect x="24" y="232" width="852" height="96" rx="8" fill="#fff8e1" stroke="#f9a825"/>
+  <text x="44" y="258" font-size="13" font-weight="bold" fill="#f57f17">从布局长出来的合同</text>
+  <text x="44" y="282" font-size="12" fill="#5d4037">热字段挨着放，少跨 cache line。最大对齐成员放前面常能少垫字节，但 ABI 稳定优先于抠 padding。</text>
+  <text x="44" y="304" font-size="12" fill="#5d4037">空基类优化：Empty 作基类常被吃掉，sizeof(Holder:Empty {int n}) == 4。当成员仍至少 1 字节。虚函数另加 vptr。</text>
+  <text x="44" y="322" font-size="11" fill="#78909c">packed 未对齐访问可能 SIGBUS。位域跨编译器布局不保证。协议结构显式控制顺序。</text>
+</svg>

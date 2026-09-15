@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" font-family="system-ui, -apple-system, sans-serif">
+  <rect width="900" height="360" rx="12" fill="#fafafa"/>
+  <rect width="900" height="360" rx="12" fill="none" stroke="#e0e0e0"/>
+  <text x="450" y="32" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a2e">vector 扩容：旧缓冲释放，iterator / 指针 / 引用全部失效</text>
+
+  <rect x="24" y="50" width="852" height="36" rx="6" fill="#eceff1" stroke="#90a4ae"/>
+  <text x="450" y="74" text-anchor="middle" font-size="13" fill="#37474f">std::vector&lt;int&gt; 栈上三指针 begin_ / end_ / cap_（常见 24 字节），元素在堆上连续缓冲</text>
+
+  <rect x="24" y="100" width="420" height="168" rx="10" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+  <text x="234" y="126" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565c0">扩容前　size=3 cap=3</text>
+  <rect x="44" y="140" width="70" height="40" rx="4" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="79" y="166" text-anchor="middle" font-size="13" font-weight="bold">1</text>
+  <rect x="118" y="140" width="70" height="40" rx="4" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="153" y="166" text-anchor="middle" font-size="13" font-weight="bold">2</text>
+  <rect x="192" y="140" width="70" height="40" rx="4" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="227" y="166" text-anchor="middle" font-size="13" font-weight="bold">3</text>
+  <rect x="44" y="196" width="120" height="28" rx="4" fill="#fff" stroke="#1565c0"/>
+  <text x="104" y="215" text-anchor="middle" font-size="11" font-family="ui-monospace, monospace" fill="#1565c0">it = begin()</text>
+  <line x1="104" y1="196" x2="79" y2="180" stroke="#c62828" stroke-width="1.5"/>
+  <polygon points="79,180 86,186 90,176" fill="#c62828"/>
+  <text x="234" y="248" text-anchor="middle" font-size="12" fill="#1565c0">it、&amp;v[0] 都指这块旧缓冲</text>
+
+  <rect x="456" y="100" width="420" height="168" rx="10" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+  <text x="666" y="126" text-anchor="middle" font-size="13" font-weight="bold" fill="#e65100">push_back 打满 → 新缓冲 cap≈6</text>
+  <rect x="476" y="140" width="56" height="40" rx="4" fill="#ffe0b2" stroke="#e65100"/>
+  <text x="504" y="166" text-anchor="middle" font-size="13" font-weight="bold">1</text>
+  <rect x="536" y="140" width="56" height="40" rx="4" fill="#ffe0b2" stroke="#e65100"/>
+  <text x="564" y="166" text-anchor="middle" font-size="13" font-weight="bold">2</text>
+  <rect x="596" y="140" width="56" height="40" rx="4" fill="#ffe0b2" stroke="#e65100"/>
+  <text x="624" y="166" text-anchor="middle" font-size="13" font-weight="bold">3</text>
+  <rect x="656" y="140" width="56" height="40" rx="4" fill="#ffcc80" stroke="#e65100"/>
+  <text x="684" y="166" text-anchor="middle" font-size="13" font-weight="bold">4</text>
+  <rect x="716" y="140" width="56" height="40" rx="4" fill="#eceff1" stroke="#90a4ae" stroke-dasharray="4 3"/>
+  <text x="744" y="166" text-anchor="middle" font-size="11" fill="#78909c">空</text>
+  <rect x="776" y="140" width="56" height="40" rx="4" fill="#eceff1" stroke="#90a4ae" stroke-dasharray="4 3"/>
+  <text x="804" y="166" text-anchor="middle" font-size="11" fill="#78909c">空</text>
+  <rect x="476" y="196" width="200" height="28" rx="4" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="576" y="215" text-anchor="middle" font-size="11" fill="#b71c1c">旧缓冲已 delete · it 悬空</text>
+  <text x="666" y="248" text-anchor="middle" font-size="12" fill="#e65100">再 *it / *p 是 UAF，未定义行为</text>
+
+  <rect x="24" y="282" width="852" height="54" rx="8" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="44" y="306" font-size="13" fill="#1b5e20">reserve(n) 先订容量，后面 push 不搬。几何增长（常见 2×）让 push_back 均摊 O(1)。</text>
+  <text x="44" y="326" font-size="12" fill="#546e7a">Python list.append 搬数组不弄悬你手里的元素引用。Go append 换数组，旧 slice 头仍指旧数组。C++ 失效写进容器合同。</text>
+</svg>

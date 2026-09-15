@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" font-family="system-ui, -apple-system, sans-serif">
+  <rect width="900" height="360" rx="12" fill="#fafafa"/>
+  <rect width="900" height="360" rx="12" fill="none" stroke="#e0e0e0"/>
+  <text x="450" y="32" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a2e">两个线程 x++：丢更新只是症状，规范名字是 data race = UB</text>
+
+  <rect x="24" y="50" width="420" height="200" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+  <text x="234" y="76" text-anchor="middle" font-size="14" font-weight="bold" fill="#b71c1c">无同步：int x; x++</text>
+  <rect x="44" y="92" width="180" height="88" rx="8" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="134" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#b71c1c">线程 A</text>
+  <text x="134" y="138" text-anchor="middle" font-size="11" fill="#c62828">读 x → 0</text>
+  <text x="134" y="156" text-anchor="middle" font-size="11" fill="#c62828">写 x ← 1</text>
+  <rect x="244" y="92" width="180" height="88" rx="8" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="334" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#b71c1c">线程 B</text>
+  <text x="334" y="138" text-anchor="middle" font-size="11" fill="#c62828">读 x → 0</text>
+  <text x="334" y="156" text-anchor="middle" font-size="11" fill="#c62828">写 x ← 1</text>
+  <text x="234" y="204" text-anchor="middle" font-size="13" font-weight="bold" fill="#c62828">期望 2，得到 1 · 一次更新丢了</text>
+  <text x="234" y="228" text-anchor="middle" font-size="11" fill="#e57373">++ 是读-改-写，即使汇编是 inc 也不原子</text>
+
+  <rect x="456" y="50" width="420" height="200" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="666" y="76" text-anchor="middle" font-size="14" font-weight="bold" fill="#1b5e20">有 happens-before</text>
+  <rect x="476" y="92" width="180" height="88" rx="8" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="566" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">mutex + lock_guard</text>
+  <text x="566" y="140" text-anchor="middle" font-size="11" fill="#2e7d32">护住普通 int</text>
+  <text x="566" y="158" text-anchor="middle" font-size="11" fill="#2e7d32">Unlock → 下一把 Lock</text>
+  <rect x="676" y="92" width="180" height="88" rx="8" fill="#a5d6a7" stroke="#2e7d32"/>
+  <text x="766" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">atomic&lt;int&gt;</text>
+  <text x="766" y="140" text-anchor="middle" font-size="11" fill="#2e7d32">fetch_add / ++</text>
+  <text x="766" y="158" text-anchor="middle" font-size="11" fill="#2e7d32">默认 seq_cst</text>
+  <text x="666" y="204" text-anchor="middle" font-size="13" font-weight="bold" fill="#2e7d32">x 一定是 200000</text>
+  <text x="666" y="228" text-anchor="middle" font-size="11" fill="#66bb6a">volatile 不是原子，也不同步</text>
+
+  <rect x="24" y="264" width="852" height="72" rx="8" fill="#fff8e1" stroke="#f9a825"/>
+  <text x="44" y="288" font-size="13" fill="#5d4037">同一标量、至少一次写、两次访问之间没有 happens-before = data race。优化器可假设它不发生，循环可能被删。</text>
+  <text x="44" y="312" font-size="12" fill="#78909c">Go 同样是 race（-race 打）。Python x+=1 碰巧常被 GIL 串行。C++ 没有 GIL。join 之后主线程读、thread 启动，都是同步。锁错对象仍是 race。</text>
+</svg>
