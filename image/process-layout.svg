@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 460" font-family="system-ui, -apple-system, sans-serif">
+  <rect width="420" height="460" rx="12" fill="#fafafa"/>
+  <rect width="420" height="460" rx="12" fill="none" stroke="#e0e0e0"/>
+  <text x="210" y="32" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a2e">进程虚拟地址：高地址栈，低地址代码</text>
+  <rect x="90" y="52" width="240" height="56" rx="8" fill="#ffcdd2" stroke="#c62828" stroke-width="1.5"/>
+  <text x="210" y="76" text-anchor="middle" font-size="14" font-weight="bold" fill="#b71c1c">栈 Stack</text>
+  <text x="210" y="96" text-anchor="middle" font-size="11" fill="#c62828">局部变量 · 向低地址长</text>
+  <text x="210" y="128" text-anchor="middle" font-size="18" fill="#90a4ae">↓ 空闲</text>
+  <rect x="90" y="148" width="240" height="56" rx="8" fill="#fff3e0" stroke="#e65100" stroke-width="1.5"/>
+  <text x="210" y="172" text-anchor="middle" font-size="14" font-weight="bold" fill="#e65100">堆 Heap</text>
+  <text x="210" y="192" text-anchor="middle" font-size="11" fill="#e65100">new / malloc · 向高地址长</text>
+  <rect x="90" y="220" width="240" height="48" rx="8" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="210" y="240" text-anchor="middle" font-size="13" font-weight="bold" fill="#2e7d32">BSS</text>
+  <text x="210" y="258" text-anchor="middle" font-size="11" fill="#558b2f">未初始化全局 / 静态</text>
+  <rect x="90" y="280" width="240" height="48" rx="8" fill="#e3f2fd" stroke="#1565c0"/>
+  <text x="210" y="300" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565c0">数据段 Data</text>
+  <text x="210" y="318" text-anchor="middle" font-size="11" fill="#1565c0">已初始化全局 / 静态</text>
+  <rect x="90" y="340" width="240" height="48" rx="8" fill="#eceff1" stroke="#546e7a"/>
+  <text x="210" y="360" text-anchor="middle" font-size="13" font-weight="bold" fill="#37474f">代码段 Text</text>
+  <text x="210" y="378" text-anchor="middle" font-size="11" fill="#546e7a">机器指令 · 通常只读</text>
+  <text x="210" y="418" text-anchor="middle" font-size="12" fill="#546e7a">栈和堆对撞就是栈溢出；new 失败在堆</text>
+  <text x="210" y="440" text-anchor="middle" font-size="12" fill="#546e7a">RAII 管的是堆，栈对象随帧析构</text>
+</svg>

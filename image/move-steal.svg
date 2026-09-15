@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 280" font-family="system-ui, -apple-system, sans-serif">
+  <rect width="860" height="280" rx="12" fill="#fafafa"/>
+  <rect width="860" height="280" rx="12" fill="none" stroke="#e0e0e0"/>
+  <text x="430" y="32" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a2e">移动：缓冲指针交出去，源掏空。std::move 自己不搬</text>
+  <rect x="30" y="56" width="390" height="190" rx="10" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+  <text x="225" y="84" text-anchor="middle" font-size="14" font-weight="bold" fill="#1565c0">移动前 v</text>
+  <rect x="70" y="110" width="80" height="90" rx="8" fill="#fff" stroke="#1565c0"/>
+  <text x="110" y="140" text-anchor="middle" font-size="12" fill="#1565c0">ptr</text>
+  <text x="110" y="160" text-anchor="middle" font-size="12" fill="#1565c0">size</text>
+  <text x="110" y="180" text-anchor="middle" font-size="12" fill="#1565c0">cap</text>
+  <rect x="210" y="118" width="170" height="74" rx="8" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="295" y="150" text-anchor="middle" font-size="13" fill="#0d47a1">堆缓冲</text>
+  <text x="295" y="172" text-anchor="middle" font-size="12" fill="#1565c0">"hello" ...</text>
+  <path d="M 150 140 L 210 140" stroke="#1565c0" stroke-width="2"/>
+  <rect x="440" y="56" width="390" height="190" rx="10" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+  <text x="635" y="84" text-anchor="middle" font-size="14" font-weight="bold" fill="#e65100">w = std::move(v) 之后</text>
+  <rect x="470" y="110" width="70" height="90" rx="8" fill="#eceff1" stroke="#90a4ae"/>
+  <text x="505" y="150" text-anchor="middle" font-size="12" fill="#546e7a">v 空</text>
+  <text x="505" y="172" text-anchor="middle" font-size="11" fill="#546e7a">ptr=0</text>
+  <rect x="560" y="110" width="70" height="90" rx="8" fill="#ffe0b2" stroke="#e65100"/>
+  <text x="595" y="150" text-anchor="middle" font-size="12" fill="#bf360c">w</text>
+  <text x="595" y="172" text-anchor="middle" font-size="11" fill="#e65100">拿走 ptr</text>
+  <rect x="650" y="118" width="150" height="74" rx="8" fill="#ffccbc" stroke="#e65100"/>
+  <text x="725" y="150" text-anchor="middle" font-size="13" fill="#bf360c">同一块缓冲</text>
+  <text x="725" y="172" text-anchor="middle" font-size="12" fill="#e65100">没再分配</text>
+  <path d="M 630 140 L 650 140" stroke="#e65100" stroke-width="2"/>
+</svg>

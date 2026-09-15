@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 220" font-family="system-ui, -apple-system, sans-serif">
+  <rect width="900" height="220" rx="12" fill="#fafafa"/>
+  <rect width="900" height="220" rx="12" fill="none" stroke="#e0e0e0"/>
+  <text x="450" y="32" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a2e">C++ 四段：预处理 → 编译 → 汇编 → 链接</text>
+  <g font-size="13">
+    <rect x="24" y="70" width="180" height="90" rx="10" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+    <text x="114" y="106" text-anchor="middle" font-weight="bold" fill="#0d47a1">预处理</text>
+    <text x="114" y="128" text-anchor="middle" fill="#1565c0">.cpp → .ii</text>
+    <text x="114" y="146" text-anchor="middle" fill="#546e7a">宏 / include / 注释</text>
+
+    <rect x="248" y="70" width="180" height="90" rx="10" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+    <text x="338" y="106" text-anchor="middle" font-weight="bold" fill="#bf360c">编译</text>
+    <text x="338" y="128" text-anchor="middle" fill="#e65100">.ii → .s</text>
+    <text x="338" y="146" text-anchor="middle" fill="#546e7a">语法语义 → 汇编</text>
+
+    <rect x="472" y="70" width="180" height="90" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+    <text x="562" y="106" text-anchor="middle" font-weight="bold" fill="#1b5e20">汇编</text>
+    <text x="562" y="128" text-anchor="middle" fill="#2e7d32">.s → .o</text>
+    <text x="562" y="146" text-anchor="middle" fill="#546e7a">机器码 + 符号表</text>
+
+    <rect x="696" y="70" width="180" height="90" rx="10" fill="#f3e5f5" stroke="#6a1b9a" stroke-width="2"/>
+    <text x="786" y="106" text-anchor="middle" font-weight="bold" fill="#4a148c">链接</text>
+    <text x="786" y="128" text-anchor="middle" fill="#6a1b9a">.o + lib → exe</text>
+    <text x="786" y="146" text-anchor="middle" fill="#546e7a">解析符号、重定位</text>
+  </g>
+  <path d="M 204 115 L 248 115" stroke="#90a4ae" stroke-width="2"/>
+  <path d="M 428 115 L 472 115" stroke="#90a4ae" stroke-width="2"/>
+  <path d="M 652 115 L 696 115" stroke="#90a4ae" stroke-width="2"/>
+  <text x="450" y="198" text-anchor="middle" font-size="12" fill="#546e7a">报错要看发生在哪一段：找不到头文件是预处理，未定义引用是链接</text>
+</svg>

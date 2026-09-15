@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 280" font-family="system-ui, -apple-system, sans-serif">
+  <rect width="860" height="280" rx="12" fill="#fafafa"/>
+  <rect width="860" height="280" rx="12" fill="none" stroke="#e0e0e0"/>
+  <text x="430" y="32" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a2e">哈希冲突：无限键挤进有限桶</text>
+  <text x="120" y="70" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565c0">键</text>
+  <rect x="40" y="86" width="160" height="36" rx="6" fill="#e3f2fd" stroke="#1565c0"/>
+  <text x="120" y="110" text-anchor="middle" font-size="13" fill="#0d47a1">"apple"</text>
+  <rect x="40" y="132" width="160" height="36" rx="6" fill="#fff3e0" stroke="#e65100"/>
+  <text x="120" y="156" text-anchor="middle" font-size="13" fill="#e65100">"papel"</text>
+  <rect x="40" y="178" width="160" height="36" rx="6" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="120" y="202" text-anchor="middle" font-size="13" fill="#2e7d32">"orange"</text>
+  <path d="M 200 104 L 300 104" stroke="#1565c0" stroke-width="1.5"/>
+  <path d="M 200 150 L 300 104" stroke="#e65100" stroke-width="1.5"/>
+  <path d="M 200 196 L 300 196" stroke="#2e7d32" stroke-width="1.5"/>
+  <text x="250" y="90" font-size="11" fill="#546e7a">hash()</text>
+  <rect x="300" y="70" width="200" height="160" rx="10" fill="#fff" stroke="#90a4ae"/>
+  <text x="400" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#37474f">桶数组</text>
+  <rect x="320" y="112" width="160" height="40" rx="6" fill="#ffe0b2" stroke="#e65100"/>
+  <text x="400" y="138" text-anchor="middle" font-size="12" fill="#bf360c">桶 3  冲突</text>
+  <rect x="320" y="164" width="160" height="40" rx="6" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="400" y="190" text-anchor="middle" font-size="12" fill="#2e7d32">桶 7  orange</text>
+  <path d="M 520 132 L 590 132" stroke="#e65100" stroke-width="1.5"/>
+  <rect x="590" y="80" width="240" height="160" rx="10" fill="#fff8e1" stroke="#f9a825"/>
+  <text x="710" y="108" text-anchor="middle" font-size="13" font-weight="bold" fill="#f57f17">链地址</text>
+  <text x="710" y="136" text-anchor="middle" font-size="12" fill="#37474f">apple → papel</text>
+  <text x="710" y="164" text-anchor="middle" font-size="12" fill="#37474f">开放地址：探下一个空桶</text>
+  <text x="710" y="192" text-anchor="middle" font-size="12" fill="#37474f">再哈希：换函数再算</text>
+  <text x="710" y="220" text-anchor="middle" font-size="11" fill="#546e7a">负载因子过高，O(1) 退化</text>
+</svg>
