@@ -8,7 +8,7 @@
 
 用法：
 
-```c
+```cpp
 void func() {
     static int count = 0;  // 局部静态变量
     count++;
@@ -36,7 +36,7 @@ int main() {
 
 用法：
 
-```c
+```cpp
 // file1.cpp
 static int global_var = 10;  // 静态全局变量
 
@@ -60,7 +60,7 @@ static void func() {         // 静态函数
 
 用法：
 
-```c
+```cpp
 class MyClass {
 public:
     static int count;  // 静态成员变量
@@ -100,7 +100,7 @@ int main() {
 
 用法：
 
-```c
+```cpp
 class MyClass {
 public:
     static int count;

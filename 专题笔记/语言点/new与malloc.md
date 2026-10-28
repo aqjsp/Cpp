@@ -26,7 +26,7 @@ void *malloc (size_t __size)
 
 函数原型：
 
-```c
+```cpp
 void* operator new(std::size_t)
 void* operator new[](std::size_t)
 ```
@@ -57,7 +57,7 @@ void* operator new[](std::size_t)
 
 如果希望 `new` 在分配失败时返回 `nullptr`，可以使用 `new(std::nothrow)` 版本。
 
-```c
+```cpp
 int* p = new(std::nothrow) int;
 if (!p) {
     // 内存分配失败的处理
@@ -72,7 +72,7 @@ if (!p) {
 
 **注意：** 一定要匹配使用 `malloc` 和 `free`，以及 `new` 和 `delete`。不能混用 `malloc/free` 和 `new/delete`，否则会引发内存错误。
 
-```c
+```bash
 int* p = (int*)malloc(sizeof(int)); // malloc 分配
 free(p);                             // 使用 free 释放
 
@@ -93,7 +93,7 @@ delete p;  // 错误！应该使用 free(p)
 
 **`new`** 在分配内存的同时会调用对象的构造函数。这是 C++ 的一大特点，因为 C++ 是面向对象的语言，对象的构造函数和析构函数非常重要。
 
-```c
+```cpp
 class MyClass {
 public:
     MyClass() { std::cout << "Constructed\n"; }

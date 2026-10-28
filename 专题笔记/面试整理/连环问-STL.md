@@ -57,7 +57,7 @@
 
 - 指定位置元素的删除操作--erase
 
-  - ```C++
+  - ```cpp
     #include <iostream>
     using namespace std;
     #include <vector>
@@ -94,7 +94,7 @@ emplace_back() 和 push_back() 的主要区别，就在于底层实现的机制�
 
 ## 13、list的常用函数
 
-```C++
+```cpp
 list.push_back(elem)    在尾部加入一个数据
 list.pop_back()         删除尾部数据
 list.push_front(elem)   在头部插入一个数据
@@ -197,7 +197,7 @@ deque为了维持整体连续的假象，设计一个中控器，其用来记录
 
 2. buffer_size函数：
 
-   1. ```C++
+   1. ```cpp
       static size_t buffer_size(){
           return __deque_buf_size(BufSiz, sizeof(T));
       }
@@ -214,7 +214,7 @@ deque为了维持整体连续的假象，设计一个中控器，其用来记录
 
 当迭代器处在当前缓冲区的边缘时，一旦前进或者后退，就要考虑超过当前缓冲区的情况，此时需要跳转到下一个缓冲区，这时候set_node就派上用场了。
 
-```C++
+```cpp
 void set_node(map_pointer new_node)
 {
   node = new_node;      // 跳转到相应缓冲区
@@ -229,7 +229,7 @@ deque维护着一个map，用来记录每个缓冲区的位置。除了map外，
 
 ## 23、deque常用的函数
 
-```C++
+```cpp
 deque.push_back(elem)在尾部加入一个数据。
 deque.pop_back()删除尾部数据。
 deque.push_front(elem)在头部插入一个数据。

@@ -15,7 +15,7 @@
 
 **用法示例**
 
-```c
+```cpp
 #include <iostream>
 
 class Base {};
@@ -61,7 +61,7 @@ int main() {
 
 **用法示例**
 
-```c
+```cpp
 #include <iostream>
 #include <typeinfo>
 
@@ -117,7 +117,7 @@ int main() {
 
 **用法示例**
 
-```c
+```cpp
 #include <iostream>
 
 int main() {
@@ -148,7 +148,7 @@ int main() {
 
 **用法示例**
 
-```c
+```cpp
 #include <iostream>
 
 int main() {

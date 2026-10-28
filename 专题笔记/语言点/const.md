@@ -51,7 +51,7 @@ const int* const ptr = &a;  // ptr 是常量指针，指向的内容也是常量
 
 常成员函数的声明中，`const` 位于函数声明的末尾，表示该函数不会修改类的成员变量。
 
-```c
+```cpp
 class MyClass {
 public:
     int getValue() const { return value; }  // 该函数不会修改类的成员变量
@@ -67,7 +67,7 @@ private:
 
 在 `const` 成员函数中，`this` 指针是 `const` 的，意味着不能通过 `this` 指针修改成员变量。
 
-```c
+```cpp
 class MyClass {
 public:
     void show() const {
@@ -86,7 +86,7 @@ private:
 
 ### 3.1 常量引用参数
 
-```c
+```cpp
 void printValue(const int& value) {
     // value = 10;  // 错误：不能修改常量引用的值
     std::cout << value << std::endl;
@@ -98,7 +98,7 @@ void printValue(const int& value) {
 
 ### 3.2 常量指针参数
 
-```c
+```cpp
 void printValue(const int* ptr) {
     // *ptr = 10;  // 错误：不能修改通过 const 指针访问的值
     std::cout << *ptr << std::endl;
@@ -109,7 +109,7 @@ void printValue(const int* ptr) {
 
 ### 3.3 作为参数的常量指针常量
 
-```c
+```cpp
 void printValue(const int* const ptr) {
     // *ptr = 10;  // 错误：不能修改指针指向的值
     // ptr = nullptr;  // 错误：不能修改常量指针本身
@@ -125,7 +125,7 @@ void printValue(const int* const ptr) {
 
 ### 4.1 常量数组
 
-```c
+```cpp
 const int arr[] = {1, 2, 3};
 arr[0] = 10;  // 错误：不能修改常量数组元素
 ```
@@ -175,7 +175,7 @@ constexpr int y = 20;   // y 的值必须在编译时已知
 
 ### 6.2 在函数中使用 `constexpr`
 
-```c
+```cpp
 constexpr int square(int x) {
     return x * x;
 }
@@ -195,7 +195,7 @@ int main() {
 
 `const` 可以修饰模板类型参数，限制模板参数在模板实例化时不可修改。
 
-```c
+```cpp
 template <typename T>
 void printValue(const T& value) {
     std::cout << value << std::endl;
@@ -208,7 +208,7 @@ void printValue(const T& value) {
 
 `const` 可以用于模板特化中，指定不同的行为。
 
-```c
+```cpp
 template <typename T>
 void printValue(T value) {
     std::cout << value << std::endl;
@@ -230,7 +230,7 @@ C++11 引入了移动语义，`const` 可以与移动构造函数和移动赋值
 
 当使用 `const` 来修饰类的成员时，可以防止对象在移动操作中被意外修改。特别是在移动构造函数和移动赋值运算符中，`const` 能够确保某些不该改变的对象数据不会被改变。
 
-```c
+```cpp
 class MyClass {
 public:
     const int x;
@@ -246,7 +246,7 @@ C++11 引入了 Lambda 表达式，`const` 可以用于限制 lambda 表达式�
 
 ### 9.1 `const` 修饰捕获列表
 
-```c
+```cpp
 int main() {
     int x = 10;
     auto lambda = [x]() { 
@@ -261,7 +261,7 @@ int main() {
 
 ### 9.2 `const` 修饰 lambda 函数参数
 
-```c
+```cpp
 auto lambda = [](const int& x) {
     // x = 10;  // 错误：参数是常量引用，不能修改
     std::cout << x << std::endl;
@@ -282,7 +282,7 @@ const int MAX_THREADS = 8; // 将 `MAX_THREADS` 声明为常量，确保它的�
 
 ### 10.2 `const` 修饰共享资源
 
-```c
+```cpp
 void processData(const std::vector<int>& data) {
     // data 内容不可被修改，确保数据的一致性
 }
@@ -296,7 +296,7 @@ void processData(const std::vector<int>& data) {
 
 ### 11.1 常量引用优化
 
-```c
+```cpp
 void printVector(const std::vector<int>& vec) {
     for (int i = 0; i < vec.size(); ++i) {
         std::cout << vec[i] << " ";

@@ -14,7 +14,7 @@
 
 先看源码：
 
-```c++
+```cpp
 template<typename _Tp, typename _Alloc = std::allocator<_Tp> >
 
     class vector : protected _Vector_base<_Tp, _Alloc>
@@ -37,7 +37,7 @@ template<typename _Tp, typename _Alloc = std::allocator<_Tp> >
 
 那再来看看内部基类 `_Vector_base`：
 
-```c++
+```cpp
   template<typename _Tp, typename _Alloc>
     struct _Vector_base
     {
@@ -208,7 +208,7 @@ template<typename _Tp, typename _Alloc = std::allocator<_Tp> >
 
 删掉了一些无关紧要的代码，从上面的`_Vector_base`可以看出它定义了一个`_Vector_impl_data`结构体：
 
-```
+```cpp
 struct _Vector_impl_data {
 	pointer _M_start;
 	pointer _M_finish;
@@ -247,14 +247,14 @@ struct _Vector_impl_data {
 
 一种是接受常量引用（`const T&`）的元素，另一种是接受右值引用（`T&&`）的元素。后一种（右值引用版本）支持通过移动语义高效地插入临时对象，而无需进行不必要的复制。
 
-```c++
+```cpp
 void push_back(const value_type& __x)
 void push_back(value_type&& __x)
 ```
 
 源码：
 
-```c++
+```cpp
 void push_back(const value_type& __x)
       {
 	if (this->_M_impl._M_finish != this->_M_impl._M_end_of_storage)
@@ -285,7 +285,7 @@ void push_back(const value_type& __x)
 
 这里就要从`_M_realloc_insert(end(), __x);`说起。
 
-```c++
+```cpp
 void
 vector<_Tp, _Alloc>::
 _M_realloc_insert(iterator __position, _Args&&... __args)
@@ -386,7 +386,7 @@ _M_realloc_insert(iterator __position, const _Tp& __x)
 
 这里面有一个函数至关重要，`_M_check_len`：
 
-```c++
+```cpp
 size_type
 _M_check_len(size_type __n, const char* __s) const
 {
@@ -420,7 +420,7 @@ _M_check_len(size_type __n, const char* __s) const
 
 源码：
 
-```c++
+```cpp
 void resize(size_type __new_size)
 {
   // 如果新大小大于当前大小
@@ -452,7 +452,7 @@ void resize(size_type __new_size, const value_type& __x)
 
 其中核心函数有三个，分别是：
 
-```c++
+```cpp
 void _M_default_append(size_type __n)
 {
   // 确保有足够的容量来容纳新的元素
@@ -460,7 +460,7 @@ void _M_default_append(size_type __n)
 }
 ```
 
-```c++
+```cpp
 void _M_fill_insert(iterator __position, size_type __n, const value_type& __x)
 {
   // 确保有足够的容量来容纳新的元素
@@ -468,7 +468,7 @@ void _M_fill_insert(iterator __position, size_type __n, const value_type& __x)
 }
 ```
 
-```c++
+```cpp
 void _M_erase_at_end(pointer __pos)
 {
   // 销毁从 __pos 开始到末尾的所有元素
@@ -484,7 +484,7 @@ void _M_erase_at_end(pointer __pos)
 
 源码：
 
-```c++
+```cpp
 void vector<_Tp, _Alloc>::reserve(size_type __n)
 {
   // 检查新容量是否超过最大允许的大小
@@ -540,7 +540,7 @@ void vector<_Tp, _Alloc>::reserve(size_type __n)
 
 源码：
 
-```c++
+```cpp
 vector<_Tp, _Alloc>::emplace_back(_Args&&... __args)
 {
   // 检查当前向量的结束指针是否指向存储区的末尾
@@ -572,7 +572,7 @@ vector<_Tp, _Alloc>::emplace_back(_Args&&... __args)
 
 源码1：
 
-```c++
+```cpp
 erase(const_iterator __position)
 {
   // 计算传入的 const_iterator 在 vector 中的位置索引
@@ -586,7 +586,7 @@ erase(const_iterator __position)
 
 非bool型：
 
-```c++
+```cpp
 typename vector<_Tp, _Alloc>::iterator
 vector<_Tp, _Alloc>::_M_erase(iterator __position)
 {
@@ -613,7 +613,7 @@ vector<_Tp, _Alloc>::_M_erase(iterator __position)
 
 bool型：
 
-```c++
+```cpp
 typename vector<bool, _Alloc>::iterator
 vector<bool, _Alloc>::_M_erase(iterator __position)
 {
@@ -634,7 +634,7 @@ vector<bool, _Alloc>::_M_erase(iterator __position)
 
 源码2：
 
-```c++
+```cpp
 erase(const_iterator __first, const_iterator __last)
 {
   // 获取 vector 的起始位置的普通迭代器和常量迭代器
@@ -651,7 +651,7 @@ erase(const_iterator __first, const_iterator __last)
 
 非bool型：
 
-```c++
+```cpp
 typename vector<_Tp, _Alloc>::iterator
 vector<_Tp, _Alloc>::_M_erase(iterator __first, iterator __last)
 {
@@ -677,7 +677,7 @@ vector<_Tp, _Alloc>::_M_erase(iterator __first, iterator __last)
 
 bool型：
 
-```c++
+```cpp
 typename vector<bool, _Alloc>::iterator
 vector<bool, _Alloc>::_M_erase(iterator __first, iterator __last)
 {
